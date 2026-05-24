@@ -182,6 +182,7 @@ func Register(c *gin.Context) {
 		DisplayName: user.Username,
 		InviterId:   inviterId,
 		Role:        common.RoleCommonUser, // 明确设置角色为普通用户
+		Status:      common.UserStatusEnabled, // 明确设置状态为启用
 	}
 	if common.EmailVerificationEnabled {
 		cleanUser.Email = user.Email

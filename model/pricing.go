@@ -35,6 +35,7 @@ type Pricing struct {
 	SupportedEndpointTypes []constant.EndpointType `json:"supported_endpoint_types"`
 	BillingMode            string                  `json:"billing_mode,omitempty"`
 	BillingExpr            string                  `json:"billing_expr,omitempty"`
+	ReleaseDate            string                  `json:"release_date,omitempty"`
 	PricingVersion         string                  `json:"pricing_version,omitempty"`
 }
 

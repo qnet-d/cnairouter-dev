@@ -19,6 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { PublicLayout } from '@/components/layout'
 import { PageTransition } from '@/components/page-transition'
 import {
@@ -28,6 +29,7 @@ import {
   RankingsHero,
 } from './components'
 import { useRankings } from './hooks/use-rankings'
+import { formatShare, formatTokens } from './lib/format'
 import type { RankingPeriod } from './types'
 
 const VALID_PERIODS: RankingPeriod[] = ['today', 'week', 'month', 'year', 'all']
@@ -45,6 +47,32 @@ export function Rankings() {
 
   const rankingsQuery = useRankings(period)
   const snapshot = rankingsQuery.data?.data
+
+  const summaryCards = snapshot
+    ? [
+        {
+          title: t('Top model'),
+          value: snapshot.models[0]?.model_name || t('N/A'),
+          note: snapshot.models[0]
+            ? formatShare(snapshot.models[0].share)
+            : t('No data'),
+        },
+        {
+          title: t('Leading vendor'),
+          value: snapshot.vendors[0]?.vendor || t('N/A'),
+          note: snapshot.vendors[0]
+            ? formatShare(snapshot.vendors[0].share)
+            : t('No data'),
+        },
+        {
+          title: t('Tracked volume'),
+          value: formatTokens(
+            snapshot.models.reduce((sum, row) => sum + row.total_tokens, 0)
+          ),
+          note: t('Aggregated token usage in the selected period'),
+        },
+      ]
+    : []
 
   const handlePeriodChange = (next: RankingPeriod) => {
     navigate({
@@ -86,6 +114,26 @@ export function Rankings() {
             />
           ) : (
             <>
+              <div className='grid gap-4 md:grid-cols-3'>
+                {summaryCards.map((card) => (
+                  <Card key={card.title} className='bg-card/80 border-border/60'>
+                    <CardHeader className='pb-2'>
+                      <CardTitle className='text-sm font-medium'>
+                        {card.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className='flex items-end justify-between gap-4'>
+                      <div className='min-w-0 truncate text-xl font-semibold md:text-2xl'>
+                        {card.value}
+                      </div>
+                      <div className='text-muted-foreground shrink-0 text-right text-xs'>
+                        {card.note}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
               <ModelsSection
                 history={snapshot.models_history}
                 rows={snapshot.models}

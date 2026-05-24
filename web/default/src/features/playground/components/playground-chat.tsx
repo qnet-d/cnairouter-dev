@@ -34,7 +34,7 @@ import {
   ConversationScrollButton,
 } from '@/components/ai-elements/conversation'
 import { Loader } from '@/components/ai-elements/loader'
-import { Message, MessageContent } from '@/components/ai-elements/message'
+import { MessageContent } from '@/components/ai-elements/message'
 import {
   Reasoning,
   ReasoningContent,
@@ -87,9 +87,7 @@ export function PlaygroundChat({
     if (!editingKey) return
     const message = messages.find((m) => m.key === editingKey)
     const content = message?.versions?.[0]?.content || ''
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEditText(content)
-
     setOriginalText(content)
   }, [editingKey, messages])
 
@@ -99,36 +97,45 @@ export function PlaygroundChat({
     () => editText !== originalText,
     [editText, originalText]
   )
+
   return (
     <Conversation>
-      {/* Remove outer padding; apply padding to inner centered container to align with input */}
       <ConversationContent className='p-0'>
-        <div className='mx-auto w-full max-w-4xl px-4 py-4'>
+        <div className='mx-auto w-full max-w-4xl px-4 py-4 space-y-6'>
           {messages.map((message, messageIndex) => {
             const { versions = [] } = message
             const isLastAssistantMessage =
               messageIndex === messages.length - 1 &&
               message.from === MESSAGE_ROLES.ASSISTANT
+
             return (
               <Branch defaultBranch={0} key={message.key}>
-                <BranchMessages>
+                <BranchMessages className='space-y-6'>
                   {versions.map((version, versionIndex) => (
-                    <Message
-                      className='group flex-row-reverse'
-                      from={message.from}
+                    <div
                       key={`${message.key}-${version.id}-${versionIndex}`}
+                      className={cn(
+                        'group/message',
+                        message.from === MESSAGE_ROLES.USER
+                          ? 'flex justify-end'
+                          : 'flex justify-start'
+                      )}
                     >
-                      <div className='w-full min-w-0 flex-1 basis-full py-1'>
+                      <div
+                        className={cn(
+                          'max-w-[85%] sm:max-w-[80%]',
+                          message.from === MESSAGE_ROLES.USER && 'w-auto'
+                        )}
+                      >
                         {isEditing(message.key) ? (
                           <div className='space-y-2'>
                             <Textarea
                               value={editText}
                               onChange={(e) => setEditText(e.target.value)}
-                              className='font-mono text-sm'
+                              className='font-mono text-sm bg-card border-border/50 rounded-xl'
                               rows={8}
                             />
                             <div className='flex gap-2'>
-                              {/* Save & Submit only makes sense for user messages */}
                               {message.from === MESSAGE_ROLES.USER && (
                                 <Button
                                   size='sm'
@@ -136,6 +143,7 @@ export function PlaygroundChat({
                                     onSaveEditAndSubmit?.(editText)
                                   }
                                   disabled={isEmpty || !isChanged}
+                                  className='bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg'
                                 >
                                   Save & Submit
                                 </Button>
@@ -144,13 +152,16 @@ export function PlaygroundChat({
                                 size='sm'
                                 onClick={() => onSaveEdit?.(editText)}
                                 disabled={isEmpty || !isChanged}
+                                variant='outline'
+                                className='rounded-lg'
                               >
                                 Save
                               </Button>
                               <Button
                                 size='sm'
-                                variant='outline'
+                                variant='ghost'
                                 onClick={() => onCancelEdit?.(false)}
+                                className='rounded-lg'
                               >
                                 Cancel
                               </Button>
@@ -175,7 +186,6 @@ export function PlaygroundChat({
                                   !message.isReasoningStreaming) &&
                                 !!version.content
 
-                              // Extract visible content (remove <think> tags for assistant messages)
                               const displayContent = isAssistant
                                 ? parseThinkTags(version.content).visibleContent
                                 : version.content
@@ -194,7 +204,14 @@ export function PlaygroundChat({
                               )
 
                               return (
-                                <>
+                                <div
+                                  className={cn(
+                                    'relative',
+                                    message.from === MESSAGE_ROLES.USER
+                                      ? 'rounded-2xl rounded-br-md bg-gradient-to-br from-indigo-500/20 to-purple-600/10 border border-indigo-500/15 px-5 py-3'
+                                      : 'px-1 py-1'
+                                  )}
+                                >
                                   {/* Sources */}
                                   {hasSources && (
                                     <Sources>
@@ -253,7 +270,8 @@ export function PlaygroundChat({
                                         <MessageContent
                                           variant='flat'
                                           className={cn(
-                                            getMessageContentStyles()
+                                            getMessageContentStyles(),
+                                            'prose-sm'
                                           )}
                                         >
                                           <Response>{displayContent}</Response>
@@ -262,13 +280,13 @@ export function PlaygroundChat({
                                       </>
                                     )
                                   )}
-                                </>
+                                </div>
                               )
                             })()}
                           </>
                         )}
                       </div>
-                    </Message>
+                    </div>
                   ))}
                 </BranchMessages>
 

@@ -49,8 +49,8 @@ export function SearchBar(props: SearchBarProps) {
   }, [])
 
   return (
-    <div className={cn('relative', props.className)}>
-      <Search className='text-muted-foreground/60 pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2' />
+    <div className={cn('relative group', props.className)}>
+      <Search className='text-muted-foreground/50 pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 transition-colors duration-200 group-focus-within:text-primary/60' />
       <input
         ref={inputRef}
         type='text'
@@ -58,26 +58,26 @@ export function SearchBar(props: SearchBarProps) {
         value={props.value}
         onChange={(e) => props.onChange(e.target.value)}
         className={cn(
-          'border-border/60 bg-background placeholder:text-muted-foreground/50',
-          'hover:border-border',
-          'focus:border-primary/50 focus:ring-primary/20 focus:ring-2',
-          'h-10 w-full rounded-lg border pr-16 pl-10 text-sm transition-all outline-none'
+          'border-border/50 bg-background/80 placeholder:text-muted-foreground/40',
+          'hover:border-border/70 hover:bg-background',
+          'focus:border-primary/40 focus:ring-2 focus:ring-primary/10 focus:bg-background',
+          'h-12 w-full rounded-xl border pr-16 pl-12 text-base transition-all duration-300 outline-none shadow-sm'
         )}
         aria-label={t('Search models')}
       />
-      <div className='absolute top-1/2 right-2.5 flex -translate-y-1/2 items-center gap-1'>
+      <div className='absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1'>
         {props.value ? (
           <Button
             variant='ghost'
             size='icon'
             onClick={props.onClear}
-            className='text-muted-foreground/60 hover:text-foreground size-7'
+            className='text-muted-foreground/50 hover:text-foreground hover:bg-muted size-8 rounded-lg'
             aria-label={t('Clear search')}
           >
             <X className='size-4' />
           </Button>
         ) : (
-          <kbd className='bg-muted text-muted-foreground pointer-events-none hidden rounded border px-1.5 py-0.5 font-mono text-[10px] sm:inline-block'>
+          <kbd className='bg-muted/80 text-muted-foreground/60 pointer-events-none hidden rounded-lg border border-border/40 px-2 py-1 font-mono text-[11px] sm:inline-block'>
             ⌘K
           </kbd>
         )}

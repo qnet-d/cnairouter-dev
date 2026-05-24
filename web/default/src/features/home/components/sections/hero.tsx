@@ -17,7 +17,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { Link } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Zap } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { HeroTerminalDemo } from '../hero-terminal-demo'
@@ -32,67 +32,110 @@ export function Hero(props: HeroProps) {
 
   return (
     <section className='relative z-10 flex flex-col items-center overflow-hidden px-6 pt-28 pb-16 md:pt-36 md:pb-24'>
-      {/* Radial gradient background */}
+      {/* Multi-layer gradient background - OpenRouter style */}
       <div
         aria-hidden
-        className='pointer-events-none absolute inset-0 -z-10 opacity-25 dark:opacity-[0.12]'
-        style={{
-          background: [
-            'radial-gradient(ellipse 60% 50% at 20% 20%, oklch(0.72 0.18 250 / 80%) 0%, transparent 70%)',
-            'radial-gradient(ellipse 50% 40% at 80% 15%, oklch(0.65 0.15 200 / 60%) 0%, transparent 70%)',
-            'radial-gradient(ellipse 40% 35% at 40% 80%, oklch(0.70 0.12 280 / 40%) 0%, transparent 70%)',
-          ].join(', '),
-        }}
-      />
-      {/* Grid pattern */}
+        className='pointer-events-none absolute inset-0 -z-10'
+      >
+        {/* Purple blob */}
+        <div
+          className='absolute top-[5%] left-[15%] w-[500px] h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-30 dark:opacity-[0.15]'
+          style={{
+            background: 'radial-gradient(circle, oklch(0.6 0.2 300 / 0.4) 0%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+        />
+        {/* Blue blob */}
+        <div
+          className='absolute top-[0%] right-[10%] w-[400px] h-[400px] md:w-[500px] md:h-[500px] rounded-full opacity-25 dark:opacity-[0.12]'
+          style={{
+            background: 'radial-gradient(circle, oklch(0.6 0.15 250 / 0.4) 0%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+        />
+        {/* Cyan blob */}
+        <div
+          className='absolute bottom-[10%] left-[40%] w-[350px] h-[350px] md:w-[450px] md:h-[450px] rounded-full opacity-20 dark:opacity-[0.08]'
+          style={{
+            background: 'radial-gradient(circle, oklch(0.65 0.12 200 / 0.3) 0%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+        />
+      </div>
+
+      {/* Grid pattern overlay */}
       <div
         aria-hidden
-        className='absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,black_20%,transparent_100%)] bg-[size:4rem_4rem] opacity-[0.08]'
+        className='absolute inset-0 -z-10 hero-grid opacity-[0.4] dark:opacity-[0.15]'
       />
 
-      <div className='flex max-w-3xl flex-col items-center text-center'>
-        <h1
-          className='landing-animate-fade-up text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.15] font-bold tracking-tight'
+      {/* Fade mask at bottom */}
+      <div
+        aria-hidden
+        className='absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent -z-10'
+      />
+
+      <div className='flex max-w-4xl flex-col items-center text-center'>
+        {/* Status badge with glow */}
+        <div
+          className='landing-animate-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/60 dark:bg-[rgba(13,13,22,0.6)] px-4 py-1.5 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur-md'
           style={{ animationDelay: '0ms' }}
         >
-          {t('Unified API Gateway for')}
-          <br />
-          <span className='bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent'>
-            {t('All Your AI Models')}
+          <span className='relative flex size-2'>
+            <span className='absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-40' />
+            <span className='relative inline-flex size-2 rounded-full bg-emerald-500' />
           </span>
-        </h1>
-        <p
-          className='landing-animate-fade-up text-muted-foreground/80 mt-5 max-w-lg text-base leading-relaxed opacity-0 md:text-lg'
+          {t('AI gateway, model directory, and observability in one place')}
+        </div>
+
+        {/* Main heading with gradient */}
+        <h1
+          className='landing-animate-fade-up text-[clamp(2.25rem,6vw,4rem)] leading-[1.08] font-bold tracking-tight'
           style={{ animationDelay: '80ms' }}
         >
-          {t('Power AI applications, manage digital assets, connect the Future')}
-        </p>
-        <div
-          className='landing-animate-fade-up mt-8 flex items-center gap-3 opacity-0'
+          {t('A unified AI gateway for')}
+          <br />
+          <span className='text-gradient'>
+            {t('routing, pricing, and control')}
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p
+          className='landing-animate-fade-up text-muted-foreground/80 mt-5 max-w-lg text-base leading-relaxed opacity-0 md:text-lg'
           style={{ animationDelay: '160ms' }}
+        >
+          {t('Compare models, route traffic, watch rankings, and manage API access from a single control surface.')}
+        </p>
+
+        {/* CTA buttons */}
+        <div
+          className='landing-animate-fade-up mt-8 flex flex-col sm:flex-row items-center gap-3 opacity-0'
+          style={{ animationDelay: '240ms' }}
         >
           {props.isAuthenticated ? (
             <Button
-              className='group rounded-lg'
+              className='group h-11 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 text-sm font-medium text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-indigo-500/40 hover:scale-[1.02] active:scale-[0.98]'
               render={<Link to='/dashboard' />}
             >
               {t('Go to Dashboard')}
-              <ArrowRight className='ml-1 size-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
+              <ArrowRight className='ml-1.5 size-4 transition-transform duration-200 group-hover:translate-x-0.5' />
             </Button>
           ) : (
             <>
               <Button
-                className='group rounded-lg'
+                className='group h-11 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 text-sm font-medium text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-indigo-500/40 hover:scale-[1.02] active:scale-[0.98]'
                 render={<Link to='/sign-up' />}
               >
                 {t('Get Started')}
-                <ArrowRight className='ml-1 size-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
+                <ArrowRight className='ml-1.5 size-4 transition-transform duration-200 group-hover:translate-x-0.5' />
               </Button>
               <Button
                 variant='outline'
-                className='border-border/50 hover:border-border hover:bg-muted/50 rounded-lg'
+                className='h-11 rounded-xl border-border/60 bg-background/50 px-6 text-sm font-medium backdrop-blur-sm transition-all duration-200 hover:bg-accent/50 hover:border-border/80'
                 render={<Link to='/pricing' />}
               >
+                <Zap className='mr-1.5 size-4 text-amber-500' />
                 {t('View Pricing')}
               </Button>
             </>
@@ -100,9 +143,10 @@ export function Hero(props: HeroProps) {
         </div>
       </div>
 
+      {/* Terminal demo */}
       <div
         className='landing-animate-fade-up w-full opacity-0'
-        style={{ animationDelay: '300ms' }}
+        style={{ animationDelay: '400ms' }}
       >
         <HeroTerminalDemo />
       </div>

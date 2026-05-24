@@ -540,6 +540,210 @@ For commercial licensing, please contact support@quantumnous.com
   contain-intrinsic-size: 0 80px;
 }
 
+/* ── OpenRouter-style Gradient Text ── */
+.text-gradient {
+  background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-indigo {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── OpenRouter-style Glow Effects ── */
+.glow-purple {
+  box-shadow: 0 0 40px -10px oklch(0.6 0.2 300 / 0.4);
+}
+
+.glow-blue {
+  box-shadow: 0 0 40px -10px oklch(0.6 0.15 250 / 0.4);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 40px -10px oklch(0.65 0.12 200 / 0.4);
+}
+
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, oklch(0.6 0.2 300 / 0.5), oklch(0.6 0.15 250 / 0.3), oklch(0.65 0.12 200 / 0.2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+/* ── Enhanced Glassmorphism ── */
+.glass-strong {
+  background: rgba(19, 19, 31, 0.7);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-subtle {
+  background: rgba(19, 19, 31, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ── Gradient Background Blobs ── */
+.gradient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.gradient-blob-purple {
+  background: oklch(0.6 0.2 300 / 0.15);
+}
+
+.gradient-blob-blue {
+  background: oklch(0.6 0.15 250 / 0.12);
+}
+
+.gradient-blob-cyan {
+  background: oklch(0.65 0.12 200 / 0.1);
+}
+
+/* ── Model Card Styles ── */
+.model-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.model-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.4);
+}
+
+.model-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, oklch(0.6 0.2 300 / 0.4), oklch(0.6 0.15 250 / 0.2), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.model-card:hover::after {
+  opacity: 1;
+}
+
+/* ── Chat Message Styles ── */
+.message-user {
+  background: linear-gradient(135deg, oklch(0.35 0.05 280), oklch(0.3 0.05 260));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.message-assistant {
+  background: transparent;
+  border: none;
+}
+
+/* ── Status Indicator Pulse ── */
+.status-pulse {
+  position: relative;
+}
+
+.status-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.5);
+  }
+}
+
+/* ── Hero Background Grid ── */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Smooth gradient border utility ── */
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, oklch(0.6 0.2 300 / 0.3), oklch(0.6 0.15 250 / 0.2), transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Animated gradient background ── */
+.animated-gradient-bg {
+  background: linear-gradient(-45deg, oklch(0.3 0.1 280), oklch(0.25 0.08 240), oklch(0.3 0.1 300), oklch(0.25 0.08 200));
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* ── Hero terminal demo animations ── */
 @keyframes terminal-demo-blink {
   0%,
@@ -579,7 +783,9 @@ For commercial licensing, please contact support@quantumnous.com
 @media (prefers-reduced-motion: reduce) {
   .terminal-demo-blink,
   .terminal-demo-spin,
-  .terminal-demo-pulse {
+  .terminal-demo-pulse,
+  .animated-gradient-bg,
+  .status-pulse::after {
     animation: none !important;
   }
 }

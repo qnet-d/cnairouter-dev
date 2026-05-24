@@ -82,12 +82,12 @@ function ProjectAttribution(props: { currentYear: number }) {
       <span className='text-muted-foreground/45'>
         &copy; {props.currentYear}{' '}
         <a
-          href='https://github.com/QuantumNous/new-api'
+          href='https://github.com/QuantumNous/cnairouter'
           target='_blank'
           rel='noopener noreferrer'
           className='text-foreground/70 hover:text-foreground font-medium transition-colors'
         >
-          {t('New API')}
+          {t('cnairouter')}
         </a>
         . {t(NEW_API_FOOTER_ATTRIBUTION_KEY)}
       </span>
@@ -101,64 +101,62 @@ export function Footer(props: FooterProps) {
     systemName,
     logo: systemLogo,
     footerHtml,
-    demoSiteEnabled,
   } = useSystemConfig()
 
-  const displayLogo = systemLogo || props.logo || '/logo.png'
-  const displayName = systemName || props.name || 'New API'
-  const isDemoSiteMode = Boolean(demoSiteEnabled)
+  const displayLogo = systemLogo || props.logo || '/商标.png'
+  const displayName = systemName || props.name || 'CnaiRouter'
   const currentYear = new Date().getFullYear()
 
   const fallbackColumns = useMemo<FooterColumnProps[]>(
     () => [
       {
-        title: t('footer.columns.about.title'),
+        title: t('Product'),
         links: [
           {
-            text: t('footer.columns.about.links.aboutProject'),
-            href: 'https://docs.newapi.pro/wiki/project-introduction/',
+            text: t('Models'),
+            href: '/pricing',
           },
           {
-            text: t('footer.columns.about.links.contact'),
-            href: 'https://docs.newapi.pro/support/community-interaction/',
+            text: t('Rankings'),
+            href: '/rankings',
           },
           {
-            text: t('footer.columns.about.links.features'),
-            href: 'https://docs.newapi.pro/wiki/features-introduction/',
+            text: t('Enterprise'),
+            href: '/enterprise',
           },
         ],
       },
       {
-        title: t('footer.columns.docs.title'),
+        title: t('Resources'),
         links: [
           {
-            text: t('footer.columns.docs.links.quickStart'),
-            href: 'https://docs.newapi.pro/getting-started/',
+            text: t('About'),
+            href: '/about',
           },
           {
-            text: t('footer.columns.docs.links.installation'),
-            href: 'https://docs.newapi.pro/installation/',
+            text: t('Privacy Policy'),
+            href: '/privacy-policy',
           },
           {
-            text: t('footer.columns.docs.links.apiDocs'),
-            href: 'https://docs.newapi.pro/api/',
+            text: t('User Agreement'),
+            href: '/user-agreement',
           },
         ],
       },
       {
-        title: t('footer.columns.related.title'),
+        title: t('Community'),
         links: [
           {
-            text: t('footer.columns.related.links.oneApi'),
-            href: 'https://github.com/songquanpeng/one-api',
+            text: t('GitHub'),
+            href: 'https://github.com/QuantumNous/cnairouter',
           },
           {
-            text: t('footer.columns.related.links.midjourney'),
-            href: 'https://github.com/novicezk/midjourney-proxy',
+            text: t('Docs'),
+            href: 'https://docs.cnairouter',
           },
           {
-            text: t('footer.columns.related.links.newApiKeyTool'),
-            href: 'https://github.com/Calcium-Ion/new-api-key-tool',
+            text: t('Support'),
+            href: 'https://docs.cnairouter/support/community-interaction/',
           },
         ],
       },
@@ -209,30 +207,28 @@ export function Footer(props: FooterProps) {
                 {displayName}
               </span>
             </Link>
-            <p className='text-muted-foreground/60 mt-3 max-w-[200px] text-xs leading-relaxed'>
-              {t('Powerful API Management Platform')}
+            <p className='text-muted-foreground/60 mt-3 max-w-[240px] text-xs leading-relaxed'>
+              {t('Unified AI gateway for routing, pricing, and observability.')}
             </p>
           </div>
 
           {/* Links columns */}
-          {isDemoSiteMode && (
-            <div className='grid grid-cols-3 gap-8 md:gap-16'>
-              {displayColumns.map((column, index) => (
-                <div key={index}>
-                  <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
-                    {t(column.title)}
-                  </p>
-                  <ul className='space-y-2.5'>
-                    {column.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
-                        <FooterLinkItem link={link} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className='grid grid-cols-1 gap-8 sm:grid-cols-3 md:gap-16'>
+            {displayColumns.map((column, index) => (
+              <div key={index}>
+                <p className='text-muted-foreground/50 mb-3 text-xs font-medium tracking-wider uppercase'>
+                  {t(column.title)}
+                </p>
+                <ul className='flex flex-col gap-2.5'>
+                  {column.links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <FooterLinkItem link={link} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom section */}

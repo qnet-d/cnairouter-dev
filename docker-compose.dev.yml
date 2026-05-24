@@ -15,19 +15,19 @@
 #   docker compose -f docker-compose.dev.yml down -v
 
 services:
-  new-api:
+  cnairouter:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    image: new-api-dev:local
-    container_name: new-api-dev
+      dockerfile: Dockerfile
+    image: cnairouter:latest
+    container_name: cnairouter
     restart: unless-stopped
     ports:
       - "3000:3000"
     volumes:
       - dev_data:/data
     environment:
-      - SQL_DSN=postgresql://root:123456@postgres:5432/new-api
+      - SQL_DSN=postgresql://root:123456@postgres:5432/cnairouter
       - REDIS_CONN_STRING=redis://redis
       - TZ=Asia/Shanghai
       - BATCH_UPDATE_ENABLED=true
@@ -53,13 +53,13 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: new-api
+      POSTGRES_DB: cnairouter
     volumes:
       - dev_pg_data:/var/lib/postgresql/data
     networks:
       - dev-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U root -d new-api"]
+      test: ["CMD-SHELL", "pg_isready -U root -d cnairouter"]
       interval: 5s
       timeout: 3s
       retries: 5

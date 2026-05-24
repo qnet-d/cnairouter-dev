@@ -46,13 +46,15 @@ export function Features(_props: FeaturesProps) {
       ),
       span: 'md:col-span-2',
       icon: <Zap className='size-4 text-blue-400' />,
+      gradient: 'from-blue-500/10 to-indigo-500/5',
+      glowColor: 'oklch(0.6 0.15 250 / 0.15)',
       visual: (
         <div className='mt-4 grid grid-cols-3 gap-2'>
           {['OpenAI', 'Claude', 'Gemini', 'DeepSeek', 'Qwen', 'Llama'].map(
             (name) => (
               <div
                 key={name}
-                className='border-border/30 bg-muted/20 text-muted-foreground flex items-center justify-center rounded-lg border px-3 py-2 text-xs transition-colors duration-300 hover:border-blue-500/30 hover:bg-blue-500/5'
+                className='border-border/30 bg-muted/20 text-muted-foreground flex items-center justify-center rounded-lg border px-3 py-2 text-xs transition-all duration-300 hover:border-blue-500/30 hover:bg-blue-500/5 hover:shadow-[0_0_12px_-4px_oklch(0.6_0.15_250_/0.2)]'
               >
                 {name}
               </div>
@@ -70,16 +72,18 @@ export function Features(_props: FeaturesProps) {
       ),
       span: 'md:col-span-1',
       icon: <Shield className='size-4 text-emerald-400' />,
+      gradient: 'from-emerald-500/10 to-teal-500/5',
+      glowColor: 'oklch(0.65 0.17 160 / 0.15)',
       visual: (
         <div className='mt-4 flex items-center justify-center'>
           <div className='relative'>
-            <div className='flex size-16 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/5'>
+            <div className='flex size-16 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/5 transition-all duration-300 hover:shadow-[0_0_20px_-4px_oklch(0.65_0.17_160_/0.3)]'>
               <Shield
                 className='size-7 text-emerald-500/70'
                 strokeWidth={1.5}
               />
             </div>
-            <div className='absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-emerald-500'>
+            <div className='absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-emerald-500 shadow-[0_0_8px_oklch(0.65_0.17_160_/0.5)]'>
               <svg
                 className='size-2.5 text-white'
                 fill='none'
@@ -105,15 +109,17 @@ export function Features(_props: FeaturesProps) {
       desc: t('Multi-region deployment for stable global access'),
       span: 'md:col-span-1',
       icon: <Globe className='size-4 text-violet-400' />,
+      gradient: 'from-violet-500/10 to-purple-500/5',
+      glowColor: 'oklch(0.6 0.2 300 / 0.15)',
       visual: (
         <div className='mt-4 space-y-2'>
           {[t('Load Balancing'), t('Rate Limiting'), t('Cost Tracking')].map(
             (step, i) => (
               <div key={step} className='flex items-center gap-2'>
                 <div
-                  className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold ${
+                  className={`flex size-6 items-center justify-center rounded-full text-[10px] font-bold transition-all duration-300 ${
                     i === 1
-                      ? 'border border-blue-500/30 bg-blue-500/20 text-blue-500'
+                      ? 'border border-blue-500/30 bg-blue-500/20 text-blue-500 shadow-[0_0_8px_-2px_oklch(0.6_0.15_250_/0.3)]'
                       : 'border-border/40 bg-muted text-muted-foreground border'
                   }`}
                 >
@@ -134,13 +140,15 @@ export function Features(_props: FeaturesProps) {
       desc: t('Compatible API routes for common AI application workflows'),
       span: 'md:col-span-2',
       icon: <Code className='size-4 text-amber-400' />,
+      gradient: 'from-amber-500/10 to-orange-500/5',
+      glowColor: 'oklch(0.7 0.15 60 / 0.15)',
       visual: (
         <div className='mt-4 flex items-center gap-3'>
           <div className='flex -space-x-2'>
             {['API', 'SDK', 'CLI', 'Docs'].map((n) => (
               <div
                 key={n}
-                className='border-background from-muted to-muted/60 text-muted-foreground flex size-8 items-center justify-center rounded-full border-2 bg-gradient-to-br text-[9px] font-bold'
+                className='border-background from-muted to-muted/60 text-muted-foreground flex size-8 items-center justify-center rounded-full border-2 bg-gradient-to-br text-[9px] font-bold transition-all duration-300 hover:scale-110'
               >
                 {n}
               </div>
@@ -160,21 +168,37 @@ export function Features(_props: FeaturesProps) {
       icon: <Gauge className='size-5' strokeWidth={1.5} />,
       title: t('High Performance'),
       desc: t('Support for high concurrency with automatic load balancing'),
+      color: 'text-blue-400',
+      bgColor: 'bg-blue-500/10',
+      borderColor: 'border-blue-500/20',
+      glowColor: 'oklch(0.6 0.15 250 / 0.2)',
     },
     {
       icon: <DollarSign className='size-5' strokeWidth={1.5} />,
       title: t('Transparent Billing'),
       desc: t('Pay-as-you-go with real-time usage monitoring'),
+      color: 'text-emerald-400',
+      bgColor: 'bg-emerald-500/10',
+      borderColor: 'border-emerald-500/20',
+      glowColor: 'oklch(0.65 0.17 160 / 0.2)',
     },
     {
       icon: <Users className='size-5' strokeWidth={1.5} />,
       title: t('Team Collaboration'),
       desc: t('Multi-user management with flexible permission allocation'),
+      color: 'text-violet-400',
+      bgColor: 'bg-violet-500/10',
+      borderColor: 'border-violet-500/20',
+      glowColor: 'oklch(0.6 0.2 300 / 0.2)',
     },
     {
       icon: <HeartHandshake className='size-5' strokeWidth={1.5} />,
       title: t('Open Source'),
       desc: t('Community driven, self-hosted, and extensible'),
+      color: 'text-amber-400',
+      bgColor: 'bg-amber-500/10',
+      borderColor: 'border-amber-500/20',
+      glowColor: 'oklch(0.7 0.15 60 / 0.2)',
     },
   ]
 
@@ -192,39 +216,50 @@ export function Features(_props: FeaturesProps) {
           </h2>
         </AnimateInView>
 
-        {/* Bento grid */}
+        {/* Bento grid with glow effects */}
         <div className='border-border/40 bg-border/40 grid gap-px overflow-hidden rounded-xl border md:grid-cols-3'>
           {features.map((f, i) => (
             <AnimateInView
               key={f.id}
               delay={i * 100}
               animation='scale-in'
-              className={`bg-background group hover:bg-muted/20 p-7 transition-colors duration-300 md:p-8 ${f.span}`}
+              className={`bg-background group hover:bg-muted/20 relative overflow-hidden p-7 transition-colors duration-300 md:p-8 ${f.span}`}
             >
-              <div className='mb-3 flex items-center gap-3'>
-                <span className='border-border/40 bg-muted text-muted-foreground flex size-7 items-center justify-center rounded-md border text-[10px] font-semibold tabular-nums'>
-                  {f.num}
-                </span>
-                <h3 className='text-sm font-semibold'>{f.title}</h3>
+              {/* Glow effect on hover */}
+              <div
+                className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'
+                style={{
+                  background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${f.glowColor}, transparent)`,
+                }}
+              />
+              <div className='relative'>
+                <div className='mb-3 flex items-center gap-3'>
+                  <span className='border-border/40 bg-muted text-muted-foreground flex size-7 items-center justify-center rounded-md border text-[10px] font-semibold tabular-nums'>
+                    {f.num}
+                  </span>
+                  <h3 className='text-sm font-semibold'>{f.title}</h3>
+                </div>
+                <p className='text-muted-foreground text-sm leading-relaxed'>
+                  {f.desc}
+                </p>
+                {f.visual}
               </div>
-              <p className='text-muted-foreground text-sm leading-relaxed'>
-                {f.desc}
-              </p>
-              {f.visual}
             </AnimateInView>
           ))}
         </div>
 
-        {/* Additional features row */}
+        {/* Additional features row with enhanced icons */}
         <div className='mt-12 grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12'>
           {additionalFeatures.map((f, i) => (
             <AnimateInView
               key={f.title}
               delay={i * 100}
               animation='fade-up'
-              className='flex flex-col items-center text-center'
+              className='group flex flex-col items-center text-center'
             >
-              <div className='text-muted-foreground border-border/50 bg-muted/30 group-hover:text-foreground mb-3 flex size-12 items-center justify-center rounded-xl border transition-colors'>
+              <div
+                className={`${f.bgColor} ${f.borderColor} mb-3 flex size-12 items-center justify-center rounded-xl border ${f.color} transition-all duration-300 group-hover:shadow-[0_0_16px_-4px_${f.glowColor}]`}
+              >
                 {f.icon}
               </div>
               <h3 className='mb-1.5 text-sm font-semibold'>{f.title}</h3>

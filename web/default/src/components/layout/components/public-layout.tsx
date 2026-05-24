@@ -35,6 +35,20 @@ type PublicLayoutProps = {
 export function PublicLayout(props: PublicLayoutProps) {
   return (
     <div className='bg-background text-foreground relative min-h-svh overflow-x-clip'>
+      <div
+        aria-hidden
+        className='pointer-events-none absolute inset-x-0 top-0 h-[680px] opacity-20 dark:opacity-[0.12]'
+        style={{
+          background: [
+            'radial-gradient(ellipse 60% 50% at 15% 15%, oklch(0.72 0.18 250 / 80%) 0%, transparent 70%)',
+            'radial-gradient(ellipse 45% 35% at 80% 10%, oklch(0.65 0.15 200 / 60%) 0%, transparent 70%)',
+            'radial-gradient(ellipse 40% 30% at 50% 75%, oklch(0.70 0.12 280 / 40%) 0%, transparent 70%)',
+          ].join(', '),
+          maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, black 40%, transparent 100%)',
+        }}
+      />
       <PublicHeader
         navContent={props.navContent}
         navLinks={props.navLinks}
@@ -47,11 +61,11 @@ export function PublicLayout(props: PublicLayoutProps) {
       />
 
       {props.showMainContainer !== false ? (
-        <main className='container px-4 py-6 pt-20 md:px-4'>
+        <main className='relative z-10 container px-4 py-6 pt-20 md:px-4'>
           {props.children}
         </main>
       ) : (
-        props.children
+        <div className='relative z-10'>{props.children}</div>
       )}
     </div>
   )

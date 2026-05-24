@@ -20,6 +20,8 @@ import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PublicLayout } from '@/components/layout'
 import { PageTransition } from '@/components/page-transition'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   LoadingSkeleton,
   EmptyState,
@@ -108,6 +110,24 @@ export function Pricing() {
     clearSearch()
   }, [clearFilters, clearSearch])
 
+  const summaryCards = [
+    {
+      title: t('Models'),
+      value: (models?.length ?? 0).toLocaleString(),
+      note: t('Available models in the current directory'),
+    },
+    {
+      title: t('Vendors'),
+      value: (vendors?.length ?? 0).toLocaleString(),
+      note: t('Distinct upstream providers'),
+    },
+    {
+      title: t('Active filters'),
+      value: activeFilterCount.toString(),
+      note: t('Filters currently shaping the result set'),
+    },
+  ]
+
   const renderPricingContent = () => {
     if (filteredModels.length === 0) {
       return (
@@ -173,23 +193,32 @@ export function Pricing() {
           }}
         />
         <PageTransition className='relative mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>
-          <header className='mx-auto mb-5 max-w-3xl pt-5 text-center sm:mb-10 sm:pt-10'>
-            <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
+          <header className='mx-auto mb-8 max-w-5xl pt-5 text-center sm:mb-12 sm:pt-10'>
+            <p className='text-muted-foreground/70 mb-3 text-xs font-medium tracking-widest uppercase'>
               {t('Models Directory')}
             </p>
-            <h1 className='text-[clamp(2rem,5.5vw,3.5rem)] leading-[1.15] font-bold tracking-tight'>
-              {t('Model Square')}
+            <h1 className='text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.05] font-bold tracking-tight'>
+              {t('Compare models before you')}{' '}
+              <span className='text-gradient-indigo'>{t('route traffic')}</span>
             </h1>
-            <p className='text-muted-foreground/80 mt-3 text-sm sm:mt-4 sm:text-base'>
-              {t('This site currently has {{count}} models enabled', {
-                count: models?.length || 0,
-              })}
-            </p>
-            <p className='text-muted-foreground/60 mx-auto mt-2 max-w-2xl text-xs leading-relaxed sm:text-sm'>
+            <p className='text-muted-foreground/70 mt-4 max-w-xl mx-auto text-sm leading-relaxed sm:text-base'>
               {t(
-                'Discover curated AI models, compare pricing and capabilities, and choose the right model for every scenario.'
+                'Browse pricing, capabilities, endpoint support, and vendor coverage in one place.'
               )}
             </p>
+            <div className='mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2'>
+              <Badge variant='secondary' className='px-3 py-1 text-xs rounded-full'>
+                {t('{{count}} models', { count: models?.length || 0 })}
+              </Badge>
+              <Badge variant='outline' className='px-3 py-1 text-xs rounded-full border-border/40'>
+                {t('{{count}} vendors', { count: vendors?.length || 0 })}
+              </Badge>
+              <Badge variant='outline' className='px-3 py-1 text-xs rounded-full border-border/40'>
+                {t('{{count}} groups', {
+                  count: availableGroups.length,
+                })}
+              </Badge>
+            </div>
             <SearchBar
               value={searchInput}
               onChange={setSearchInput}
@@ -197,9 +226,35 @@ export function Pricing() {
               placeholder={t(
                 'Search model name, provider, endpoint, or tag...'
               )}
-              className='mx-auto mt-4 max-w-2xl sm:mt-6'
+              className='mx-auto mt-6 max-w-2xl sm:mt-8'
             />
           </header>
+
+          <div className='mb-8 grid gap-4 md:grid-cols-3'>
+            {summaryCards.map((card) => (
+              <Card key={card.title} className='group bg-card/60 border-border/40 overflow-hidden relative'>
+                <div
+                  className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'
+                  style={{
+                    background: 'radial-gradient(ellipse 80% 50% at 50% 0%, oklch(0.6 0.18 280 / 0.06), transparent 70%)',
+                  }}
+                />
+                <CardHeader className='pb-2 relative'>
+                  <CardTitle className='text-xs font-medium text-muted-foreground/70 uppercase tracking-wider'>
+                    {card.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className='flex items-end justify-between gap-4 relative'>
+                  <div className='text-3xl font-bold tabular-nums tracking-tight'>
+                    {card.value}
+                  </div>
+                  <div className='text-muted-foreground/60 max-w-40 text-right text-xs leading-relaxed'>
+                    {card.note}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
           <div className='grid gap-4 xl:grid-cols-[330px_minmax(0,1fr)]'>
             <PricingSidebar
