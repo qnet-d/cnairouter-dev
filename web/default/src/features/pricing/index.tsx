@@ -20,8 +20,6 @@ import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PublicLayout } from '@/components/layout'
 import { PageTransition } from '@/components/page-transition'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   LoadingSkeleton,
   EmptyState,
@@ -110,24 +108,6 @@ export function Pricing() {
     clearSearch()
   }, [clearFilters, clearSearch])
 
-  const summaryCards = [
-    {
-      title: t('Models'),
-      value: (models?.length ?? 0).toLocaleString(),
-      note: t('Available models in the current directory'),
-    },
-    {
-      title: t('Vendors'),
-      value: (vendors?.length ?? 0).toLocaleString(),
-      note: t('Distinct upstream providers'),
-    },
-    {
-      title: t('Active filters'),
-      value: activeFilterCount.toString(),
-      note: t('Filters currently shaping the result set'),
-    },
-  ]
-
   const renderPricingContent = () => {
     if (filteredModels.length === 0) {
       return (
@@ -176,87 +156,35 @@ export function Pricing() {
 
   return (
     <PublicLayout showMainContainer={false}>
-      <div className='relative'>
-        <div
-          aria-hidden
-          className='pointer-events-none absolute inset-x-0 top-0 h-[600px] opacity-20 dark:opacity-[0.10]'
-          style={{
-            background: [
-              'radial-gradient(ellipse 60% 50% at 20% 20%, oklch(0.72 0.18 250 / 80%) 0%, transparent 70%)',
-              'radial-gradient(ellipse 50% 40% at 80% 15%, oklch(0.65 0.15 200 / 60%) 0%, transparent 70%)',
-              'radial-gradient(ellipse 40% 35% at 50% 70%, oklch(0.70 0.12 280 / 40%) 0%, transparent 70%)',
-            ].join(', '),
-            maskImage:
-              'linear-gradient(to bottom, black 40%, transparent 100%)',
-            WebkitMaskImage:
-              'linear-gradient(to bottom, black 40%, transparent 100%)',
-          }}
-        />
+      <div className='from-background via-background to-cyan-50/40 dark:to-cyan-950/15 relative min-h-svh bg-linear-to-br'>
         <PageTransition className='relative mx-auto w-full max-w-[1800px] px-3 pt-16 pb-8 sm:px-6 sm:pt-20 sm:pb-10 xl:px-8'>
-          <header className='mx-auto mb-8 max-w-5xl pt-5 text-center sm:mb-12 sm:pt-10'>
-            <p className='text-muted-foreground/70 mb-3 text-xs font-medium tracking-widest uppercase'>
-              {t('Models Directory')}
-            </p>
-            <h1 className='text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.05] font-bold tracking-tight'>
-              {t('Compare models before you')}{' '}
-              <span className='text-gradient-indigo'>{t('route traffic')}</span>
+          <header className='mx-auto mb-7 max-w-4xl pt-6 text-center sm:mb-9 sm:pt-10'>
+            <h1 className='text-4xl leading-tight font-bold tracking-tight sm:text-5xl'>
+              {t('Model Square')}
             </h1>
-            <p className='text-muted-foreground/70 mt-4 max-w-xl mx-auto text-sm leading-relaxed sm:text-base'>
+            <p className='text-muted-foreground mt-4 text-base sm:text-lg'>
               {t(
-                'Browse pricing, capabilities, endpoint support, and vendor coverage in one place.'
+                'This site currently has {{count}} models enabled',
+                { count: models?.length || 0 }
               )}
             </p>
-            <div className='mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2'>
-              <Badge variant='secondary' className='px-3 py-1 text-xs rounded-full'>
-                {t('{{count}} models', { count: models?.length || 0 })}
-              </Badge>
-              <Badge variant='outline' className='px-3 py-1 text-xs rounded-full border-border/40'>
-                {t('{{count}} vendors', { count: vendors?.length || 0 })}
-              </Badge>
-              <Badge variant='outline' className='px-3 py-1 text-xs rounded-full border-border/40'>
-                {t('{{count}} groups', {
-                  count: availableGroups.length,
-                })}
-              </Badge>
-            </div>
+            <p className='text-muted-foreground/80 mx-auto mt-4 max-w-3xl text-sm leading-relaxed sm:text-base'>
+              {t(
+                'Connect through OpenAI, Claude, Gemini, and other compatible API routes'
+              )}
+            </p>
             <SearchBar
               value={searchInput}
               onChange={setSearchInput}
               onClear={clearSearch}
-              placeholder={t(
-                'Search model name, provider, endpoint, or tag...'
-              )}
-              className='mx-auto mt-6 max-w-2xl sm:mt-8'
+              placeholder={t('Search model name, provider, endpoint, or tag...')}
+              className='mx-auto mt-7 max-w-2xl sm:mt-8'
             />
           </header>
 
-          <div className='mb-8 grid gap-4 md:grid-cols-3'>
-            {summaryCards.map((card) => (
-              <Card key={card.title} className='group bg-card/60 border-border/40 overflow-hidden relative'>
-                <div
-                  className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'
-                  style={{
-                    background: 'radial-gradient(ellipse 80% 50% at 50% 0%, oklch(0.6 0.18 280 / 0.06), transparent 70%)',
-                  }}
-                />
-                <CardHeader className='pb-2 relative'>
-                  <CardTitle className='text-xs font-medium text-muted-foreground/70 uppercase tracking-wider'>
-                    {card.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className='flex items-end justify-between gap-4 relative'>
-                  <div className='text-3xl font-bold tabular-nums tracking-tight'>
-                    {card.value}
-                  </div>
-                  <div className='text-muted-foreground/60 max-w-40 text-right text-xs leading-relaxed'>
-                    {card.note}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <div className='border-border/60 mb-5 border-t' />
 
-          <div className='grid gap-4 xl:grid-cols-[330px_minmax(0,1fr)]'>
+          <div className='grid gap-5 xl:grid-cols-[340px_minmax(0,1fr)]'>
             <PricingSidebar
               quotaTypeFilter={quotaTypeFilter}
               endpointTypeFilter={endpointTypeFilter}
@@ -275,7 +203,7 @@ export function Pricing() {
               models={models || []}
               hasActiveFilters={hasActiveFilters}
               onClearFilters={clearFilters}
-              className='hover-scrollbar sticky top-4 hidden max-h-[calc(100dvh-2rem)] self-start overflow-y-auto xl:block'
+              className='hover-scrollbar sticky top-20 hidden max-h-[calc(100dvh-6rem)] self-start overflow-y-auto border-0 bg-transparent p-0 shadow-none xl:block'
             />
 
             <main className='min-w-0 space-y-4'>

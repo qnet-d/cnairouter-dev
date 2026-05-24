@@ -247,10 +247,7 @@ export function PricingSidebar(props: PricingSidebarProps) {
     <aside className={cn('rounded-xl border p-3', props.className)}>
       <div className='mb-2.5 flex items-center justify-between gap-2'>
         <div>
-          <h2 className='text-foreground text-sm font-bold'>{t('Filter')}</h2>
-          <p className='text-muted-foreground mt-1 text-xs'>
-            {t('Refine models by provider, group, type, and tags.')}
-          </p>
+          <h2 className='text-foreground text-lg font-bold'>{t('Filter')}</h2>
         </div>
         <Button
           type='button'
@@ -279,7 +276,7 @@ export function PricingSidebar(props: PricingSidebarProps) {
           onChange={props.onGroupChange}
         />
         <FilterSection
-          title={t('All Vendors')}
+          title={t('Vendors')}
           value={props.vendorFilter}
           options={vendorOptions}
           onChange={props.onVendorChange}

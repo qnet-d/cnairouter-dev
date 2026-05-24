@@ -1,0 +1,90 @@
+# Production compose file for building and running this repository image.
+#
+# Quick start:
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# Before production use, set strong values in a .env file:
+#   POSTGRES_PASSWORD=...
+#   REDIS_PASSWORD=...
+#   SESSION_SECRET=...
+
+services:
+  cnairouter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${CNAIROUTER_IMAGE:-cnairouter:latest}
+    container_name: cnairouter
+    restart: unless-stopped
+    command: --log-dir /app/logs
+    ports:
+      - "${CNAIROUTER_PORT:-3000}:3000"
+    volumes:
+      - ./data:/data
+      - ./logs:/app/logs
+    environment:
+      SQL_DSN: postgresql://${POSTGRES_USER:-root}:${POSTGRES_PASSWORD:-change-me}@postgres:5432/${POSTGRES_DB:-cnairouter}
+      REDIS_CONN_STRING: redis://:${REDIS_PASSWORD:-change-me}@redis:6379
+      TZ: ${TZ:-Asia/Shanghai}
+      ERROR_LOG_ENABLED: "true"
+      BATCH_UPDATE_ENABLED: "true"
+      NODE_NAME: ${NODE_NAME:-cnairouter-node-1}
+      SESSION_SECRET: ${SESSION_SECRET:-change-this-session-secret}
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - cnairouter-network
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -q -O - http://localhost:3000/api/status | grep -o '\"success\":\\s*true' || exit 1",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    container_name: cnairouter-redis
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:-change-me}"]
+    networks:
+      - cnairouter-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-change-me}", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: cnairouter-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-root}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_DB: ${POSTGRES_DB:-cnairouter}
+    volumes:
+      - cnairouter_pg_data:/var/lib/postgresql/data
+    networks:
+      - cnairouter-network
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-root} -d ${POSTGRES_DB:-cnairouter}",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  cnairouter_pg_data:
+
+networks:
+  cnairouter-network:
+    driver: bridge

@@ -159,7 +159,7 @@ export function PricingToolbar(props: PricingToolbarProps) {
   )
 
   return (
-    <div className='rounded-xl border p-3'>
+    <div>
       <div className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between'>
         <div className='flex items-center gap-2'>
           <Button
@@ -178,11 +178,15 @@ export function PricingToolbar(props: PricingToolbarProps) {
             )}
           </Button>
 
-          <div className='text-muted-foreground flex items-baseline gap-1 text-sm'>
-            <span className='text-foreground font-semibold tabular-nums'>
-              {props.filteredCount.toLocaleString()}
+          <div className='text-muted-foreground flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm'>
+            <span className='text-foreground text-lg font-bold'>
+              {t('All')}
             </span>
-            <span>{props.filteredCount === 1 ? t('model') : t('models')}</span>
+            <span className='text-foreground font-semibold tabular-nums'>
+              {t('{{count}} models', {
+                count: props.filteredCount.toLocaleString(),
+              })}
+            </span>
             {props.hasActiveFilters && props.totalCount && (
               <span className='text-muted-foreground/60 text-xs'>
                 / {props.totalCount.toLocaleString()}
