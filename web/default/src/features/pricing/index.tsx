@@ -17,9 +17,12 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { useCallback, useMemo, useState } from 'react'
+import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { PublicLayout } from '@/components/layout'
 import { PageTransition } from '@/components/page-transition'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   LoadingSkeleton,
   EmptyState,
@@ -173,6 +176,38 @@ export function Pricing() {
                 'Connect through OpenAI, Claude, Gemini, and other compatible API routes'
               )}
             </p>
+            <div className='mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2'>
+              <Badge variant='secondary' className='px-3 py-1 text-xs rounded-full'>
+                {t('{{count}} models', { count: models?.length || 0 })}
+              </Badge>
+              <Badge variant='outline' className='px-3 py-1 text-xs rounded-full border-border/40'>
+                {t('{{count}} vendors', { count: vendors?.length || 0 })}
+              </Badge>
+              <Badge variant='outline' className='px-3 py-1 text-xs rounded-full border-border/40'>
+                {t('{{count}} groups', {
+                  count: availableGroups.length,
+                })}
+              </Badge>
+            </div>
+            <div className='mx-auto mt-6 grid max-w-4xl gap-3 rounded-2xl border bg-card/70 p-4 text-left shadow-sm backdrop-blur sm:grid-cols-[1fr_auto] sm:items-center'>
+              <div>
+                <p className='text-sm font-medium'>
+                  {t('OpenAI-compatible access for every listed model')}
+                </p>
+                <p className='text-muted-foreground mt-1 text-xs leading-relaxed sm:text-sm'>
+                  {t(
+                    'Use one API key, inspect low-cost model options, and route traffic through the gateway without changing your application architecture.'
+                  )}
+                </p>
+              </div>
+              <Button
+                variant='outline'
+                className='w-full sm:w-auto'
+                render={<Link to='/docs' />}
+              >
+                {t('Quickstart')}
+              </Button>
+            </div>
             <SearchBar
               value={searchInput}
               onChange={setSearchInput}

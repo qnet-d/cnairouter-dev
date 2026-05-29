@@ -36,24 +36,24 @@ export function EnterpriseSection() {
       <div className='mx-auto grid max-w-6xl gap-4 lg:grid-cols-[1.1fr_0.9fr]'>
         <div className='rounded-3xl border bg-linear-to-br from-card to-muted/20 p-8 shadow-sm md:p-10'>
           <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('Enterprise')}
+            {t('For Teams')}
           </p>
           <h2 className='text-2xl font-semibold tracking-tight md:text-4xl'>
-            {t('A gateway that works for internal teams and customer-facing products')}
+            {t('A gateway that works for solo builders, teams, and customer-facing products')}
           </h2>
           <p className='text-muted-foreground mt-4 max-w-2xl text-sm leading-relaxed md:text-base'>
             {t(
-              'Use cnairouter as a hosted AI edge layer with controlled access, unified billing, observability, and predictable routing.'
+              'Use cnairouter as a hosted AI edge layer with controlled access, unified billing, usage visibility, and predictable routing.'
             )}
           </p>
 
           <div className='mt-6 flex flex-wrap gap-3'>
             <Button render={<Link to='/sign-up' />}>
-              {t('Get Started')}
+              {t('Create API key')}
               <ArrowRight />
             </Button>
-            <Button variant='outline' render={<Link to='/about' />}>
-              {t('Learn More')}
+            <Button variant='outline' render={<Link to='/enterprise' />}>
+              {t('Team controls')}
             </Button>
           </div>
         </div>
@@ -64,21 +64,21 @@ export function EnterpriseSection() {
               icon: Shield,
               title: t('Security and access control'),
               description: t(
-                'API keys, passkeys, roles, and routing rules stay in one place.'
+                'API keys, passkeys, roles, quota groups, and routing rules stay in one place.'
               ),
             },
             {
               icon: Workflow,
               title: t('Operational visibility'),
               description: t(
-                'Track usage, health, and cost signals without switching tools.'
+                'Track model usage, upstream health, and cost signals without switching tools.'
               ),
             },
             {
               icon: Sparkles,
               title: t('Productized routing'),
               description: t(
-                'Present model routing as a product surface with a clean public story.'
+                'Present model routing as a clean developer product instead of a hidden proxy.'
               ),
             },
           ].map((item) => {
@@ -94,7 +94,7 @@ export function EnterpriseSection() {
                 </CardHeader>
                 <CardContent className='pt-0'>
                   <p className='text-muted-foreground rounded-lg border border-dashed px-3 py-3 text-xs leading-relaxed'>
-                    {t('This section intentionally mirrors the clean, data-first trust language used by OpenRouter-style public pages.')}
+                    {t('Designed for transparent usage, predictable billing, and provider flexibility as traffic grows.')}
                   </p>
                 </CardContent>
               </Card>

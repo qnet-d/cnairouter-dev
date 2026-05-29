@@ -38,6 +38,7 @@ export type TopNavLink = {
  *   console: true,
  *   pricing: { enabled: true, requireAuth: false },
  *   rankings: { enabled: true, requireAuth: false },
+ *   enterprise: true,
  *   docs: true,
  *   about: true
  * }
@@ -85,9 +86,14 @@ export function useTopNavLinks(): TopNavLink[] {
     links.push({ title: t('Rankings'), href: '/rankings', requiresAuth })
   }
 
+  // Enterprise
+  if (modules?.enterprise !== false) {
+    links.push({ title: t('Enterprise'), href: '/enterprise' })
+  }
+
   // Docs (supports external links)
   if (modules?.docs !== false) {
-    if (docsLink) {
+    if (docsLink && docsLink !== 'https://docs.cnairouter') {
       links.push({ title: t('Docs'), href: docsLink, external: true })
     } else {
       links.push({ title: t('Docs'), href: '/docs' })

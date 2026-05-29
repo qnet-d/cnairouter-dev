@@ -47,6 +47,7 @@ const headerNavSchema = z.object({
   pricingRequireAuth: z.boolean(),
   rankingsEnabled: z.boolean(),
   rankingsRequireAuth: z.boolean(),
+  enterprise: z.boolean(),
   docs: z.boolean(),
   about: z.boolean(),
 })
@@ -81,6 +82,10 @@ const toFormValues = (config: HeaderNavModulesConfig): HeaderNavFormValues => ({
     config.rankings?.requireAuth === undefined
       ? HEADER_NAV_DEFAULT.rankings.requireAuth
       : Boolean(config.rankings.requireAuth),
+  enterprise:
+    config.enterprise === undefined
+      ? HEADER_NAV_DEFAULT.enterprise
+      : Boolean(config.enterprise),
   docs:
     config.docs === undefined ? HEADER_NAV_DEFAULT.docs : Boolean(config.docs),
   about:
@@ -111,6 +116,7 @@ export function HeaderNavigationSection({
       ...config,
       home: values.home,
       console: values.console,
+      enterprise: values.enterprise,
       docs: values.docs,
       about: values.about,
       pricing: {
@@ -154,6 +160,11 @@ export function HeaderNavigationSection({
       key: 'console',
       title: t('Console'),
       description: t('User dashboard and quota controls.'),
+    },
+    {
+      key: 'enterprise',
+      title: t('Enterprise'),
+      description: t('Team and enterprise gateway positioning page.'),
     },
     {
       key: 'docs',

@@ -16,7 +16,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { useState, useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 type AccentTone = 'emerald' | 'amber' | 'blue' | 'violet'
@@ -71,15 +71,15 @@ const ACCENT_CLASSES: Record<
 
 const API_DEMOS: ApiDemoConfig[] = [
   {
-    id: 'gpt-chat',
+    id: 'openai-compatible',
     label: 'Chat',
     method: 'POST',
     endpoint: '/v1/chat/completions',
-    headers: ['"Authorization: Bearer sk-••••"'],
+    headers: ['"Authorization: Bearer $CNAIROUTER_API_KEY"'],
     request: [
-      '"model": "your-model",',
+      '"model": "openai/gpt-4o-mini",',
       '"messages": [',
-      '  { "role": "user", "content": "..." }',
+      '  { "role": "user", "content": "Ship a concise release note." }',
       ']',
     ],
     response: [
@@ -94,12 +94,16 @@ const API_DEMOS: ApiDemoConfig[] = [
     accent: 'emerald',
   },
   {
-    id: 'responses',
-    label: 'Responses',
+    id: 'price-route',
+    label: 'Route',
     method: 'POST',
     endpoint: '/v1/responses',
-    headers: ['"Authorization: Bearer sk-••••"'],
-    request: ['"model": "your-model",', '"input": "..."'],
+    headers: ['"Authorization: Bearer $CNAIROUTER_API_KEY"'],
+    request: [
+      '"model": "deepseek/deepseek-chat",',
+      '"input": "Draft a support reply.",',
+      '"metadata": { "route": "lowest-cost" }',
+    ],
     response: [
       '{',
       '  "output": [{ "type": "output_text", "text": <text> }],',
@@ -116,12 +120,15 @@ const API_DEMOS: ApiDemoConfig[] = [
     label: 'Claude',
     method: 'POST',
     endpoint: '/v1/messages',
-    headers: ['"x-api-key: sk-••••"', '"anthropic-version: 2023-06-01"'],
+    headers: [
+      '"x-api-key: $CNAIROUTER_API_KEY"',
+      '"anthropic-version: 2023-06-01"',
+    ],
     request: [
-      '"model": "your-model",',
+      '"model": "anthropic/claude-3-5-haiku",',
       '"max_tokens": 1024,',
       '"messages": [',
-      '  { "role": "user", "content": "..." }',
+      '  { "role": "user", "content": "Review this diff." }',
       ']',
     ],
     response: [
@@ -140,11 +147,12 @@ const API_DEMOS: ApiDemoConfig[] = [
     label: 'Gemini',
     method: 'POST',
     endpoint: '/v1beta/models/{model}:generateContent',
-    headers: ['"x-goog-api-key: sk-••••"'],
+    headers: ['"x-goog-api-key: $CNAIROUTER_API_KEY"'],
     request: [
+      '"model": "google/gemini-2.0-flash",',
       '"contents": [',
       '  { "role": "user",',
-      '    "parts": [{ "text": "..." }] }',
+      '    "parts": [{ "text": "Explain this chart." }] }',
       ']',
     ],
     response: [
@@ -210,7 +218,6 @@ export function HeroTerminalDemo() {
           'dark:border-white/[0.06] dark:bg-[#0b0f17]/95 dark:shadow-[0_20px_60px_-25px_rgba(0,0,0,0.7)]'
         )}
       >
-        {/* Tab strip */}
         <div
           className={cn(
             'flex items-center gap-1 border-b px-2 sm:gap-1.5 sm:px-3',
@@ -243,7 +250,6 @@ export function HeroTerminalDemo() {
           </div>
         </div>
 
-        {/* Endpoint row */}
         <div
           className={cn(
             'flex items-center gap-2.5 border-b px-5 py-3',
@@ -268,16 +274,11 @@ export function HeroTerminalDemo() {
           </code>
         </div>
 
-        {/* Body — fixed rows so neither block shifts when switching demos */}
         <div className='grid h-[400px] grid-rows-[235px_minmax(0,1fr)] font-mono text-[12.5px] leading-[1.55]'>
-          {/* Request */}
           <RequestBlock demo={demo} transitioning={transitioning} />
-
-          {/* Response */}
           <ResponseBlock demo={demo} transitioning={transitioning} />
         </div>
 
-        {/* Footer metrics */}
         <div
           className={cn(
             'flex items-center justify-between border-t px-5 py-2.5',
@@ -296,14 +297,14 @@ export function HeroTerminalDemo() {
             </span>
             <span className='bg-foreground/15 size-1 rounded-full' />
             <span className='flex items-center gap-1'>
-              <span className='tracking-wider uppercase'>cost</span>
+              <span className='tracking-wider uppercase'>est.</span>
               <span className='font-mono'>
                 ${(demo.tokens * 0.00003).toFixed(5)}
               </span>
             </span>
           </div>
           <span className='text-foreground/30 font-mono text-[10px] tracking-wider uppercase'>
-            stream · sse
+            stream / sse
           </span>
         </div>
       </div>
@@ -443,16 +444,15 @@ function renderResponseLine(line: string, demo: ApiDemoConfig): ReactNode {
 
 function truncateResponse(demo: ApiDemoConfig): string {
   const map: Record<string, string> = {
-    'gpt-chat': 'Chat request routed.',
-    responses: 'Response workflow ready.',
-    claude: 'Claude message routed.',
-    gemini: 'Gemini request served.',
+    'openai-compatible': 'OpenAI-compatible request routed.',
+    'price-route': 'Lowest-cost route selected.',
+    claude: 'Claude-compatible request routed.',
+    gemini: 'Gemini-compatible request served.',
   }
   return map[demo.id] ?? '...'
 }
 
 function tokenize(input: string): ReactNode {
-  // Split string into "..." string runs and the rest, then color keys/punct.
   const segments: ReactNode[] = []
   let cursor = 0
   const matches = [...input.matchAll(STRING_RE)]

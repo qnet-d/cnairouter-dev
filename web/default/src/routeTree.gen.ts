@@ -19,6 +19,7 @@ import { Route as RankingsIndexRouteImport } from './routes/rankings/index'
 import { Route as PricingIndexRouteImport } from './routes/pricing/index'
 import { Route as PanelIndexRouteImport } from './routes/panel/index'
 import { Route as EnterpriseIndexRouteImport } from './routes/enterprise/index'
+import { Route as DocsIndexRouteImport } from './routes/docs/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as OauthProviderRouteImport } from './routes/oauth/$provider'
 import { Route as ConsoleTopupRouteImport } from './routes/console/topup'
@@ -116,6 +117,11 @@ const PanelIndexRoute = PanelIndexRouteImport.update({
 const EnterpriseIndexRoute = EnterpriseIndexRouteImport.update({
   id: '/enterprise/',
   path: '/enterprise/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsIndexRoute = DocsIndexRouteImport.update({
+  id: '/docs/',
+  path: '/docs/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
@@ -419,6 +425,7 @@ export interface FileRoutesByFullPath {
   '/console/topup': typeof ConsoleTopupRoute
   '/oauth/$provider': typeof OauthProviderRoute
   '/about/': typeof AboutIndexRoute
+  '/docs/': typeof DocsIndexRoute
   '/enterprise/': typeof EnterpriseIndexRoute
   '/panel/': typeof PanelIndexRoute
   '/pricing/': typeof PricingIndexRoute
@@ -478,6 +485,7 @@ export interface FileRoutesByTo {
   '/console/topup': typeof ConsoleTopupRoute
   '/oauth/$provider': typeof OauthProviderRoute
   '/about': typeof AboutIndexRoute
+  '/docs': typeof DocsIndexRoute
   '/enterprise': typeof EnterpriseIndexRoute
   '/panel': typeof PanelIndexRoute
   '/pricing': typeof PricingIndexRoute
@@ -541,6 +549,7 @@ export interface FileRoutesById {
   '/console/topup': typeof ConsoleTopupRoute
   '/oauth/$provider': typeof OauthProviderRoute
   '/about/': typeof AboutIndexRoute
+  '/docs/': typeof DocsIndexRoute
   '/enterprise/': typeof EnterpriseIndexRoute
   '/panel/': typeof PanelIndexRoute
   '/pricing/': typeof PricingIndexRoute
@@ -603,6 +612,7 @@ export interface FileRouteTypes {
     | '/console/topup'
     | '/oauth/$provider'
     | '/about/'
+    | '/docs/'
     | '/enterprise/'
     | '/panel/'
     | '/pricing/'
@@ -662,6 +672,7 @@ export interface FileRouteTypes {
     | '/console/topup'
     | '/oauth/$provider'
     | '/about'
+    | '/docs'
     | '/enterprise'
     | '/panel'
     | '/pricing'
@@ -724,6 +735,7 @@ export interface FileRouteTypes {
     | '/console/topup'
     | '/oauth/$provider'
     | '/about/'
+    | '/docs/'
     | '/enterprise/'
     | '/panel/'
     | '/pricing/'
@@ -779,6 +791,7 @@ export interface RootRouteChildren {
   ConsoleTopupRoute: typeof ConsoleTopupRoute
   OauthProviderRoute: typeof OauthProviderRoute
   AboutIndexRoute: typeof AboutIndexRoute
+  DocsIndexRoute: typeof DocsIndexRoute
   EnterpriseIndexRoute: typeof EnterpriseIndexRoute
   PanelIndexRoute: typeof PanelIndexRoute
   PricingIndexRoute: typeof PricingIndexRoute
@@ -857,6 +870,13 @@ declare module '@tanstack/react-router' {
       path: '/enterprise'
       fullPath: '/enterprise/'
       preLoaderRoute: typeof EnterpriseIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs/': {
+      id: '/docs/'
+      path: '/docs'
+      fullPath: '/docs/'
+      preLoaderRoute: typeof DocsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about/': {
@@ -1355,6 +1375,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConsoleTopupRoute: ConsoleTopupRoute,
   OauthProviderRoute: OauthProviderRoute,
   AboutIndexRoute: AboutIndexRoute,
+  DocsIndexRoute: DocsIndexRoute,
   EnterpriseIndexRoute: EnterpriseIndexRoute,
   PanelIndexRoute: PanelIndexRoute,
   PricingIndexRoute: PricingIndexRoute,

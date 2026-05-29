@@ -45,28 +45,28 @@ export function Enterprise() {
       icon: Route,
       title: t('Routing abstraction'),
       description: t(
-        'Present multiple upstream providers through one stable API surface and operational control layer.'
+        'Present OpenAI-compatible, Anthropic, Gemini, open-weight, and multimodal providers through one stable API surface.'
       ),
     },
     {
       icon: Shield,
       title: t('Governance and access'),
       description: t(
-        'Combine quotas, user roles, API keys, and risk controls in the same product surface.'
+        'Combine quotas, user roles, API keys, passkeys, and risk controls in the same product surface.'
       ),
     },
     {
       icon: BarChart3,
       title: t('Usage intelligence'),
       description: t(
-        'Surface pricing, adoption, rankings, and channel health as first-class product features.'
+        'Surface pricing, adoption, usage logs, rankings, and channel health as first-class product features.'
       ),
     },
     {
       icon: CreditCard,
       title: t('Flexible billing story'),
       description: t(
-        'Support transparent markup, recharge flows, subscriptions, and operational cost monitoring.'
+        'Support transparent markup, recharge flows, subscriptions, enterprise billing, and operational cost monitoring.'
       ),
     },
   ]
@@ -89,16 +89,16 @@ export function Enterprise() {
                 {t('Enterprise')}
               </div>
               <h1 className='text-[clamp(2rem,5vw,4rem)] leading-[1.05] font-semibold tracking-tight'>
-                {t('Build an AI gateway that feels like a product, not just a proxy')}
+                {t('Give teams one controlled gateway for every AI model API')}
               </h1>
               <p className='text-muted-foreground mt-5 max-w-2xl text-sm leading-relaxed md:text-base'>
                 {t(
-                  'cnairouter can front multiple providers, centralize access control, expose transparent model discovery, and give operators a clean place to watch spend and traffic.'
+                  'cnairouter can front multiple providers, centralize access control, expose transparent model discovery, and give operators a clean place to watch spend, traffic, and reliability.'
                 )}
               </p>
               <div className='mt-7 flex flex-wrap gap-3'>
                 <Button render={<Link to='/sign-up' />}>
-                  {t('Get Started')}
+                  {t('Create API key')}
                 </Button>
                 <Button variant='outline' render={<Link to='/pricing' />}>
                   {t('Browse Models')}
@@ -108,10 +108,10 @@ export function Enterprise() {
 
             <Card className='bg-card/80 border-border/60 backdrop-blur-sm'>
               <CardHeader>
-                <CardTitle>{t('Why this page exists now')}</CardTitle>
+                <CardTitle>{t('Enterprise-ready without hiding the developer flow')}</CardTitle>
                 <CardDescription>
                   {t(
-                    'OpenRouter succeeds because the public product story is clear. cnairouter needs the same clarity when presenting its routing, pricing, and control capabilities.'
+                    'Personal developers can start with one key, while teams can layer on quota groups, billing visibility, passkeys, and provider controls.'
                   )}
                 </CardDescription>
               </CardHeader>

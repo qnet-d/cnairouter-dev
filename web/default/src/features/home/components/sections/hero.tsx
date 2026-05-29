@@ -17,7 +17,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, Zap } from 'lucide-react'
+import { ArrowRight, BookOpen, Zap } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { HeroTerminalDemo } from '../hero-terminal-demo'
@@ -85,7 +85,7 @@ export function Hero(props: HeroProps) {
             <span className='absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-40' />
             <span className='relative inline-flex size-2 rounded-full bg-emerald-500' />
           </span>
-          {t('AI gateway, model directory, and observability in one place')}
+          {t('OpenAI-compatible gateway for global AI model APIs')}
         </div>
 
         {/* Main heading with gradient */}
@@ -93,10 +93,10 @@ export function Hero(props: HeroProps) {
           className='landing-animate-fade-up text-[clamp(2.25rem,6vw,4rem)] leading-[1.08] font-bold tracking-tight'
           style={{ animationDelay: '80ms' }}
         >
-          {t('A unified AI gateway for')}
+          {t('One API key for')}
           <br />
           <span className='text-gradient'>
-            {t('routing, pricing, and control')}
+            {t('500+ low-cost AI models')}
           </span>
         </h1>
 
@@ -105,7 +105,7 @@ export function Hero(props: HeroProps) {
           className='landing-animate-fade-up text-muted-foreground/80 mt-5 max-w-lg text-base leading-relaxed opacity-0 md:text-lg'
           style={{ animationDelay: '160ms' }}
         >
-          {t('Compare models, route traffic, watch rankings, and manage API access from a single control surface.')}
+          {t('Route GPT, Claude, Gemini, DeepSeek, Qwen, Llama, image, audio, and embedding requests through one developer-friendly gateway with transparent pricing.')}
         </p>
 
         {/* CTA buttons */}
@@ -137,6 +137,14 @@ export function Hero(props: HeroProps) {
               >
                 <Zap className='mr-1.5 size-4 text-amber-500' />
                 {t('View Pricing')}
+              </Button>
+              <Button
+                variant='ghost'
+                className='h-11 rounded-xl px-6 text-sm font-medium'
+                render={<Link to='/docs' />}
+              >
+                <BookOpen className='mr-1.5 size-4' />
+                {t('Read Docs')}
               </Button>
             </>
           )}

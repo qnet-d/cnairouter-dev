@@ -40,9 +40,9 @@ export function Features(_props: FeaturesProps) {
     {
       id: 'fast',
       num: '01',
-      title: t('Lightning Fast'),
+      title: t('OpenAI-compatible'),
       desc: t(
-        'Optimized network architecture ensures millisecond response times'
+        'Drop in one base URL for chat, responses, Claude-style messages, embeddings, image, and video routes'
       ),
       span: 'md:col-span-2',
       icon: <Zap className='size-4 text-blue-400' />,
@@ -50,7 +50,7 @@ export function Features(_props: FeaturesProps) {
       glowColor: 'oklch(0.6 0.15 250 / 0.15)',
       visual: (
         <div className='mt-4 grid grid-cols-3 gap-2'>
-          {['OpenAI', 'Claude', 'Gemini', 'DeepSeek', 'Qwen', 'Llama'].map(
+          {['GPT', 'Claude', 'Gemini', 'DeepSeek', 'Qwen', 'Llama'].map(
             (name) => (
               <div
                 key={name}
@@ -66,9 +66,9 @@ export function Features(_props: FeaturesProps) {
     {
       id: 'secure',
       num: '02',
-      title: t('Secure & Reliable'),
+      title: t('Low-cost model access'),
       desc: t(
-        'Enterprise-grade security with comprehensive permission management'
+        'Expose affordable model groups, recharge pricing, and usage-based billing without hiding the math'
       ),
       span: 'md:col-span-1',
       icon: <Shield className='size-4 text-emerald-400' />,
@@ -105,8 +105,8 @@ export function Features(_props: FeaturesProps) {
     {
       id: 'global',
       num: '03',
-      title: t('Global Coverage'),
-      desc: t('Multi-region deployment for stable global access'),
+      title: t('Provider fallback'),
+      desc: t('Route around upstream failures with channel priority, groups, and retry controls'),
       span: 'md:col-span-1',
       icon: <Globe className='size-4 text-violet-400' />,
       gradient: 'from-violet-500/10 to-purple-500/5',
@@ -136,8 +136,8 @@ export function Features(_props: FeaturesProps) {
     {
       id: 'developer',
       num: '04',
-      title: t('Developer Friendly'),
-      desc: t('Compatible API routes for common AI application workflows'),
+      title: t('Developer-first onboarding'),
+      desc: t('Docs, model discovery, API keys, and playground workflows make the first request quick'),
       span: 'md:col-span-2',
       icon: <Code className='size-4 text-amber-400' />,
       gradient: 'from-amber-500/10 to-orange-500/5',
@@ -167,7 +167,7 @@ export function Features(_props: FeaturesProps) {
     {
       icon: <Gauge className='size-5' strokeWidth={1.5} />,
       title: t('High Performance'),
-      desc: t('Support for high concurrency with automatic load balancing'),
+      desc: t('Support high-concurrency API traffic with automatic load balancing'),
       color: 'text-blue-400',
       bgColor: 'bg-blue-500/10',
       borderColor: 'border-blue-500/20',
@@ -176,7 +176,7 @@ export function Features(_props: FeaturesProps) {
     {
       icon: <DollarSign className='size-5' strokeWidth={1.5} />,
       title: t('Transparent Billing'),
-      desc: t('Pay-as-you-go with real-time usage monitoring'),
+      desc: t('Pay as you go with real-time token and spend monitoring'),
       color: 'text-emerald-400',
       bgColor: 'bg-emerald-500/10',
       borderColor: 'border-emerald-500/20',
@@ -185,7 +185,7 @@ export function Features(_props: FeaturesProps) {
     {
       icon: <Users className='size-5' strokeWidth={1.5} />,
       title: t('Team Collaboration'),
-      desc: t('Multi-user management with flexible permission allocation'),
+      desc: t('Multi-user accounts, keys, groups, and spend controls for teams'),
       color: 'text-violet-400',
       bgColor: 'bg-violet-500/10',
       borderColor: 'border-violet-500/20',
@@ -193,8 +193,8 @@ export function Features(_props: FeaturesProps) {
     },
     {
       icon: <HeartHandshake className='size-5' strokeWidth={1.5} />,
-      title: t('Open Source'),
-      desc: t('Community driven, self-hosted, and extensible'),
+      title: t('Self-hosted option'),
+      desc: t('Run the gateway stack yourself when customers need dedicated control'),
       color: 'text-amber-400',
       bgColor: 'bg-amber-500/10',
       borderColor: 'border-amber-500/20',
@@ -207,12 +207,12 @@ export function Features(_props: FeaturesProps) {
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-16 max-w-lg'>
           <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('Core Features')}
+            {t('Gateway Features')}
           </p>
           <h2 className='text-2xl leading-tight font-bold tracking-tight md:text-3xl'>
             {t('Built for developers,')}
             <br />
-            {t('designed for scale')}
+            {t('priced for real usage')}
           </h2>
         </AnimateInView>
 

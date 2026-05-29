@@ -26,23 +26,23 @@ export function HowItWorks() {
   const steps = [
     {
       num: '1',
-      title: t('Configure'),
+      title: t('Choose models'),
       desc: t(
-        'Add your API keys, set up channels and configure access permissions'
+        'Compare GPT, Claude, Gemini, DeepSeek, Qwen, Llama, and multimodal models by price and capability'
       ),
       icon: <Settings className='size-6' strokeWidth={1.5} />,
     },
     {
       num: '2',
-      title: t('Connect'),
+      title: t('Connect once'),
       desc: t(
-        'Connect through OpenAI, Claude, Gemini, and other compatible API routes'
+        'Use one API key and OpenAI-compatible base URL across your apps, agents, and internal tools'
       ),
       icon: <Zap className='size-6' strokeWidth={1.5} />,
     },
     {
       num: '3',
-      title: t('Monitor'),
+      title: t('Control spend'),
       desc: t('Track usage, costs and performance with real-time analytics'),
       icon: <BarChart3 className='size-6' strokeWidth={1.5} />,
     },
@@ -53,10 +53,10 @@ export function HowItWorks() {
       <div className='mx-auto max-w-6xl'>
         <AnimateInView className='mb-16 text-center md:mb-20'>
           <p className='text-muted-foreground mb-3 text-xs font-medium tracking-widest uppercase'>
-            {t('How It Works')}
+            {t('Launch Flow')}
           </p>
           <h2 className='text-2xl font-bold tracking-tight md:text-3xl'>
-            {t('Three steps to get started')}
+            {t('From signup to first routed request in minutes')}
           </h2>
         </AnimateInView>
 

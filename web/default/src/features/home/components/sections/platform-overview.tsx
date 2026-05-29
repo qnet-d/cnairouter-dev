@@ -35,19 +35,19 @@ export function PlatformOverview() {
     {
       title: t('One endpoint for many providers'),
       description: t(
-        'Route requests across OpenAI-compatible, Anthropic, Gemini, Bedrock, Azure, and more from a consistent API surface.'
+        'Route requests across OpenAI-compatible, Anthropic, Gemini, open-weight, embedding, image, and audio APIs from one surface.'
       ),
     },
     {
-      title: t('Model catalog with pricing context'),
+      title: t('Model catalog with low-cost context'),
       description: t(
-        'Browse models by capability, vendor, endpoint type, and billing mode before you commit traffic.'
+        'Browse models by capability, provider, endpoint type, and pricing before you commit traffic.'
       ),
     },
     {
-      title: t('Live usage and ranking visibility'),
+      title: t('Usage and spend visibility'),
       description: t(
-        'Track model adoption, vendor share, spend, latency, and movement using platform-level analytics.'
+        'Track token usage, model adoption, spend, latency, and movement using platform-level analytics.'
       ),
     },
     {
@@ -66,11 +66,11 @@ export function PlatformOverview() {
             {t('Platform Overview')}
           </p>
           <h2 className='text-2xl font-semibold tracking-tight md:text-3xl'>
-            {t('Built for teams that route serious AI traffic')}
+            {t('Built for developers who want model choice without vendor lock-in')}
           </h2>
           <p className='text-muted-foreground mt-3 text-sm leading-relaxed md:text-base'>
             {t(
-              'cnairouter should feel less like a theme demo and more like an operational control plane. The public experience now mirrors that goal.'
+              'The public product surface highlights fast onboarding, clear prices, and broad model access for global developers.'
             )}
           </p>
         </div>
@@ -94,7 +94,7 @@ export function PlatformOverview() {
                   <div className='bg-muted/50 text-muted-foreground rounded-lg border px-3 py-3 text-xs leading-relaxed'>
                     {index === 0 &&
                       t(
-                        'Best suited for teams replacing one-off direct integrations with a central router.'
+                        'Best suited for apps replacing one-off direct integrations with a central gateway.'
                       )}
                     {index === 1 &&
                       t(
@@ -102,7 +102,7 @@ export function PlatformOverview() {
                       )}
                     {index === 2 &&
                       t(
-                        'Usage data becomes a product surface, not just an afterthought buried in admin pages.'
+                        'Usage data stays visible to individual developers and teams before costs drift.'
                       )}
                     {index === 3 &&
                       t(
